@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Contact Table</title>
+    <link rel="stylesheet" href="src/css/style.css">
+    <link rel="stylesheet" href="src/css/headerStyle.css">
+
+</head>
+<body>
+
+<ul class="list">
+    <li><a href="/">Home</a></li>
+    <li><a href="/src/html/cathedra.html">Cathedras</a></li>
+    <li><a href="/src/html/student.html">Students</a></li>
+<!--    <li><a href="https://www.w3schools.com/html/">Contact</a></li>-->
+    <li><a href="#about">About</a></li>
+</ul>
+
+
+<div class="main-container">
+    <div class="form-container">
+        <h1>Contact Form</h1>
+        <div class="form">
+            <input type="text" id="name" placeholder="Name" required />
+            <input type="number" id="phone" placeholder="Phone" required />
+            <input type="button" value="Save" id="btnSave" />
+            <input type="button" value="Refresh Form" id="btnRefresh" />
+        </div>
+    </div>
+    <div class="table-container">
+        <table id="table1">
+            <thead id="table-head">
+            <tr>
+                <th>S.N.</th>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+<script src="src/js/deaneryTable.js" charset="utf-8"></script>
+</body>
+</html>
