@@ -1,13 +1,25 @@
 'use strict';
 
-let deaneryData;
-const departmentsUrl = "http://localhost:8080/departments";
+let departmentData;
+let url_string =  window.location.href;
+let url = new URL(url_string);
+let id = url.searchParams.get("id");
+console.log(id);
+
+
+const departmentsUrl = "http://localhost:8080/departments/" + id;
+const rootGroupsUrl = "http://localhost:8080/groups";
+let groupsUrl;
+
 
 window.onload = async () => {
-    const response = await fetch(departmentsUrl);
-    const myJson = await response.json();
-    deaneryData = myJson["_embedded"].departments;
-
+    let response = await fetch(departmentsUrl);
+    let myJson = await response.json();
+    groupsUrl = myJson['_links'].classes.href;
+    response = await fetch(groupsUrl);
+    myJson = await response.json();
+    const departmentData = myJson['_embedded'].groups;
+    console.log(departmentData);
 
 // Update table according to data
     var updateTable = function () {
@@ -21,8 +33,8 @@ window.onload = async () => {
 
         dataTable.appendChild(tableHead);
 
-        for (var i = 0; i < deaneryData.length; i++) {
-            const deanery = deaneryData[i];
+        for (var i = 0; i < departmentData.length; i++) {
+            const deanery = departmentData[i];
             var tr = document.createElement('tr'),
                 td0 = document.createElement('td'),
                 td1 = document.createElement('td'),
@@ -33,7 +45,7 @@ window.onload = async () => {
             btnDelete.setAttribute('type', 'button');
             btnDelete.setAttribute('value', 'Delete');
             btnDelete.setAttribute('class', 'btnDelete');
-            btnDelete.setAttribute('id', deanery['_links'].self.href);
+            btnDelete.setAttribute('id', deanery['_links'].department.href);
 
             btnEdit.setAttribute('type', 'button');
             btnEdit.setAttribute('value', 'Edit');
@@ -44,7 +56,7 @@ window.onload = async () => {
             tr.appendChild(td2);
 
             let id = deanery['_links'].self.href.split("/").slice(-1)[0];
-            td0.innerHTML = '<a href="/static/html/department.html?id=' + id + '">'+deanery.name+'</a>';
+            td0.innerHTML = '<a href="/static/html/group.html?id=' + id + '">'+deanery.name+'</a>';
             td1.appendChild(btnEdit);
             td2.appendChild(btnDelete);
 
@@ -73,10 +85,10 @@ window.onload = async () => {
 
 // Set form for data edit
     var updateForm = function (id) {
-        var nameField = document.getElementById('department'),
+        var nameField = document.getElementById('group'),
             saveButton = document.getElementById('btnSave');
 
-        const deanery = deaneryData[id];
+        const deanery = departmentData[id];
         nameField.value = deanery.name;
         saveButton.value = 'Update';
         saveButton.setAttribute('data-update', deanery['_links'].self.href);
@@ -84,26 +96,36 @@ window.onload = async () => {
 
 // Save new data
     var saveData = async function () {
-        var newName = document.getElementById('department').value,
+        var newName = document.getElementById('group').value,
             datatoAdd = {
                 name: newName,
             };
 
-        let result = await fetch(departmentsUrl, {
+        let result = await fetch(rootGroupsUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(datatoAdd)
         });
+        const json = await result.json();
+        const groupUrl = json['_links'].department.href;
+
+        result = await fetch(groupUrl, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'text/uri-list',
+            },
+            body: departmentsUrl
+        });
 
         document.location.reload(true);
     };
 
 // Update data
-    var updateData = async function (departmentUrl) {
-        var upName = document.getElementById('department').value;
-        let result = await fetch(departmentUrl, {
+    var updateData = async function (groupUrl) {
+        var upName = document.getElementById('group').value;
+        let result = await fetch(groupUrl, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

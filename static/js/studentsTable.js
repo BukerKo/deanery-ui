@@ -1,12 +1,12 @@
 'use strict';
 
-let deaneryData;
-const departmentsUrl = "http://localhost:8080/departments";
+let studentsData;
+const tutorsUrl = "http://localhost:8080/students";
 
 window.onload = async () => {
-    const response = await fetch(departmentsUrl);
+    const response = await fetch(tutorsUrl);
     const myJson = await response.json();
-    deaneryData = myJson["_embedded"].departments;
+    studentsData = myJson["_embedded"].students;
 
 
 // Update table according to data
@@ -21,19 +21,21 @@ window.onload = async () => {
 
         dataTable.appendChild(tableHead);
 
-        for (var i = 0; i < deaneryData.length; i++) {
-            const deanery = deaneryData[i];
+        for (var i = 0; i < studentsData.length; i++) {
+            const student = studentsData[i];
             var tr = document.createElement('tr'),
                 td0 = document.createElement('td'),
                 td1 = document.createElement('td'),
                 td2 = document.createElement('td'),
+                td3 = document.createElement('td'),
+                td4 = document.createElement('td'),
                 btnDelete = document.createElement('input'),
                 btnEdit = document.createElement('input');
 
             btnDelete.setAttribute('type', 'button');
             btnDelete.setAttribute('value', 'Delete');
             btnDelete.setAttribute('class', 'btnDelete');
-            btnDelete.setAttribute('id', deanery['_links'].self.href);
+            btnDelete.setAttribute('id', student['_links'].self.href);
 
             btnEdit.setAttribute('type', 'button');
             btnEdit.setAttribute('value', 'Edit');
@@ -42,11 +44,16 @@ window.onload = async () => {
             tr.appendChild(td0);
             tr.appendChild(td1);
             tr.appendChild(td2);
+            tr.appendChild(td3);
+            tr.appendChild(td4);
 
-            let id = deanery['_links'].self.href.split("/").slice(-1)[0];
-            td0.innerHTML = '<a href="/static/html/department.html?id=' + id + '">'+deanery.name+'</a>';
-            td1.appendChild(btnEdit);
-            td2.appendChild(btnDelete);
+
+            let id = student['_links'].self.href.split("/").slice(-1)[0];
+            td0.innerHTML = student.firstName;
+            td1.innerHTML = student.lastName;
+            td2.innerHTML = student.birthDate;
+            td3.appendChild(btnEdit);
+            td4.appendChild(btnDelete);
 
 
             btnDelete.onclick = (function () {
@@ -73,23 +80,31 @@ window.onload = async () => {
 
 // Set form for data edit
     var updateForm = function (id) {
-        var nameField = document.getElementById('department'),
+        var firstNameField = document.getElementById('first_name'),
+            lastNameField = document.getElementById('last_name'),
+            degreeField = document.getElementById('birth_date'),
             saveButton = document.getElementById('btnSave');
 
-        const deanery = deaneryData[id];
-        nameField.value = deanery.name;
+        const tutor = studentsData[id];
+        firstNameField.value = tutor.firstName;
+        lastNameField.value = tutor.lastName;
+        degreeField.value = tutor.birthDate;
         saveButton.value = 'Update';
-        saveButton.setAttribute('data-update', deanery['_links'].self.href);
+        saveButton.setAttribute('data-update', tutor['_links'].self.href);
     };
 
 // Save new data
     var saveData = async function () {
-        var newName = document.getElementById('department').value,
+        var newFirstName = document.getElementById('first_name').value,
+            newLastName = document.getElementById('last_name').value,
+            newBirthDate = document.getElementById('birth_date').value,
             datatoAdd = {
-                name: newName,
+                firstName: newFirstName,
+                lastName: newLastName,
+                birthDate: newBirthDate
             };
 
-        let result = await fetch(departmentsUrl, {
+        let result = await fetch(tutorsUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -102,13 +117,20 @@ window.onload = async () => {
 
 // Update data
     var updateData = async function (departmentUrl) {
-        var upName = document.getElementById('department').value;
+        var upFirstName = document.getElementById('first_name').value;
+        var upLastName = document.getElementById('last_name').value;
+        var upBirthDate = document.getElementById('birth_date').value;
+
         let result = await fetch(departmentUrl, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({name : upName})
+            body: JSON.stringify({
+                firstName : upFirstName,
+                lastName: upLastName,
+                birthDate: upBirthDate
+            })
         });
         document.location.reload(true);
     };

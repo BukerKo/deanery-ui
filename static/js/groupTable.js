@@ -1,13 +1,22 @@
 'use strict';
 
-let deaneryData;
-const departmentsUrl = "http://localhost:8080/departments";
+let departmentData;
+let url_string =  window.location.href;
+let url = new URL(url_string);
+let id = url.searchParams.get("id");
+
+const groupsUrl = "http://localhost:8080/groups/" + id;
+const rootStudentsUrl = "http://localhost:8080/students";
+let studentsUrl;
+
 
 window.onload = async () => {
-    const response = await fetch(departmentsUrl);
-    const myJson = await response.json();
-    deaneryData = myJson["_embedded"].departments;
-
+    let response = await fetch(groupsUrl);
+    let myJson = await response.json();
+    studentsUrl = myJson['_links'].students.href;
+    response = await fetch(studentsUrl);
+    myJson = await response.json();
+    const studentData = myJson['_embedded'].students;
 
 // Update table according to data
     var updateTable = function () {
@@ -21,19 +30,22 @@ window.onload = async () => {
 
         dataTable.appendChild(tableHead);
 
-        for (var i = 0; i < deaneryData.length; i++) {
-            const deanery = deaneryData[i];
+        for (var i = 0; i < studentData.length; i++) {
+            const student = studentData[i];
             var tr = document.createElement('tr'),
                 td0 = document.createElement('td'),
                 td1 = document.createElement('td'),
                 td2 = document.createElement('td'),
+                td3 = document.createElement('td'),
+                td4 = document.createElement('td'),
+
                 btnDelete = document.createElement('input'),
                 btnEdit = document.createElement('input');
 
             btnDelete.setAttribute('type', 'button');
             btnDelete.setAttribute('value', 'Delete');
             btnDelete.setAttribute('class', 'btnDelete');
-            btnDelete.setAttribute('id', deanery['_links'].self.href);
+            btnDelete.setAttribute('id', student['_links'].group.href);
 
             btnEdit.setAttribute('type', 'button');
             btnEdit.setAttribute('value', 'Edit');
@@ -42,11 +54,15 @@ window.onload = async () => {
             tr.appendChild(td0);
             tr.appendChild(td1);
             tr.appendChild(td2);
+            tr.appendChild(td3);
+            tr.appendChild(td4);
 
-            let id = deanery['_links'].self.href.split("/").slice(-1)[0];
-            td0.innerHTML = '<a href="/static/html/department.html?id=' + id + '">'+deanery.name+'</a>';
-            td1.appendChild(btnEdit);
-            td2.appendChild(btnDelete);
+            let id = student['_links'].self.href.split("/").slice(-1)[0];
+            td0.innerHTML = student.firstName;
+            td1.innerHTML = student.lastName;
+            td2.innerHTML = student.birthDate;
+            td3.appendChild(btnEdit);
+            td4.appendChild(btnDelete);
 
 
             btnDelete.onclick = (function () {
@@ -73,42 +89,67 @@ window.onload = async () => {
 
 // Set form for data edit
     var updateForm = function (id) {
-        var nameField = document.getElementById('department'),
+        var firstNameField = document.getElementById('first_name'),
+            lastNameField = document.getElementById('last_name'),
+            birthDateField = document.getElementById('birth_date'),
             saveButton = document.getElementById('btnSave');
 
-        const deanery = deaneryData[id];
-        nameField.value = deanery.name;
+        const student = studentData[id];
+        firstNameField.value = student.firstName;
+        lastNameField.value = student.lastName;
+        birthDateField.value = student.birthDate;
         saveButton.value = 'Update';
-        saveButton.setAttribute('data-update', deanery['_links'].self.href);
+        saveButton.setAttribute('data-update', student['_links'].self.href);
     };
 
 // Save new data
     var saveData = async function () {
-        var newName = document.getElementById('department').value,
+        var newFirstName = document.getElementById('first_name').value,
+            newLastName = document.getElementById('last_name').value,
+            newBirthDate = document.getElementById('birth_date').value,
             datatoAdd = {
-                name: newName,
+                firstName: newFirstName,
+                lastName: newLastName,
+                birthDate: newBirthDate,
             };
 
-        let result = await fetch(departmentsUrl, {
+        let result = await fetch(rootStudentsUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(datatoAdd)
         });
+        const json = await result.json();
+        const groupUrl = json['_links'].group.href;
+
+        result = await fetch(groupUrl, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'text/uri-list',
+            },
+            body: groupsUrl
+        });
 
         document.location.reload(true);
     };
 
 // Update data
-    var updateData = async function (departmentUrl) {
-        var upName = document.getElementById('department').value;
-        let result = await fetch(departmentUrl, {
+    var updateData = async function (groupUrl) {
+        var upFirstName = document.getElementById('first_name').value;
+        var upLastName = document.getElementById('last_name').value;
+        var upBirthDate = document.getElementById('birth_date').value;
+
+        let result = await fetch(groupUrl, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({name : upName})
+            body: JSON.stringify({
+                firstName : upFirstName,
+                lastName: upLastName,
+                birthDate: upBirthDate
+            })
         });
         document.location.reload(true);
     };
