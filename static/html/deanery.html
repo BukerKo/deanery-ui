@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Refresh" charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="Expires" content="0"/>
+
+    <title>Title</title>
+
+    <link rel="stylesheet" href="../css/tableStyle.css">
+    <link rel="stylesheet" href="../css/headerStyle.css">
+</head>
+<body>
+
+<ul class="list">
+    <li><a href="deanery.html">Deanery</a></li>
+    <li><a href="cathedra.html">Students</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#about">About</a></li>
+</ul>
+
+<div class="main-container">
+    <div class="form-container">
+        <h1>Departments</h1>
+        <div class="form">
+            <input type="text" id="department" placeholder="Department" required/>
+<!--            <input type="number" id="phone" placeholder="Phone" required/>-->
+            <input type="button" value="Save" id="btnSave"/>
+            <input type="button" value="Refresh Form" id="btnRefresh"/>
+        </div>
+    </div>
+    <div class="table-container">
+        <table id="table1">
+            <thead id="table-head">
+            <tr>
+                <th>Department</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+<script src="../js/deaneryTable.js" charset="utf-8"></script>
+
+</body>
+</html>
