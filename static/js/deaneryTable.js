@@ -1,7 +1,7 @@
 'use strict';
 
 let deaneryData;
-const departmentsUrl = "http://localhost:8080/departments";
+const departmentsUrl = "http://localhost:8085/departments";
 
 window.onload = async () => {
     const response = await fetch(departmentsUrl);
@@ -44,7 +44,7 @@ window.onload = async () => {
             tr.appendChild(td2);
 
             let id = deanery['_links'].self.href.split("/").slice(-1)[0];
-            td0.innerHTML = '<a href="/static/html/department.html?id=' + id + '">'+deanery.name+'</a>';
+            td0.innerHTML = '<a href="/static/html/department.html?groupId=' + id + '">'+deanery.name+'</a>';
             td1.appendChild(btnEdit);
             td2.appendChild(btnDelete);
 

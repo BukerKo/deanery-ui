@@ -25,7 +25,7 @@ h1 {
   padding: 10px 20px;
   color: #fff;
 }
-input[type='text'], input[type='number'] {
+input[type='text'], input[type='number'], select {
   display: block;
   width: 50%;
   padding: 5px 10px 5px 5px;
@@ -36,11 +36,11 @@ input[type='text'], input[type='number'] {
   outline: none;
   font-size: 18px;
 }
-input[type='text']:focus, input[type='number']:focus {
+input[type='text']:focus, input[type='number']:focus, select:focus {
   border-bottom: 1px solid #26a69a;
   box-shadow: 0 1px 0 0 #26a69a;
 }
-input[type='button'] {
+input[type='button'], select {
   color: #fff;
   background-color: #26a69a;
   text-align: center;

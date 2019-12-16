@@ -8,6 +8,126 @@
             <set />
           </value>
         </entry>
+        <entry key="/a.dummy">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$USER_HOME$/Development/MindTap/mt-env-configs/envsBuild/int/cmp/policy.json">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$USER_HOME$/Development/MindTap/mt-env-configs/envsBuild/int/core/server.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$USER_HOME$/Development/MindTap/mt-env-configs/envsBuild/int/core/weblink.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$USER_HOME$/Development/MindTap/mt-env-configs/envsBuild/production/cmp/policy.json">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$USER_HOME$/Development/MindTap/mt-env-configs/envsConfigs/environments/staging.json">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$USER_HOME$/Development/MindTap/mt-env-configs/envsConfigs/templates/cmp/policy.json">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../deanery-service/src/main/java/com/gmail/buer2012/deaneryservice/entity/Deanery.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../deanery-service/src/main/java/com/gmail/buer2012/deaneryservice/entity/Department.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../deanery-service/src/main/java/com/gmail/buer2012/deaneryservice/entity/Group.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../deanery-service/src/main/java/com/gmail/buer2012/deaneryservice/entity/Lesson.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../deanery-service/src/main/java/com/gmail/buer2012/deaneryservice/entity/Student.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../deanery-service/src/main/java/com/gmail/buer2012/deaneryservice/entity/StudentsGroup.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../deanery-service/src/main/java/com/gmail/buer2012/deaneryservice/entity/Time.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../deanery-service/src/main/java/com/gmail/buer2012/deaneryservice/entity/TimeTable.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../deanery-service/src/main/java/com/gmail/buer2012/deaneryservice/entity/Tutor.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../deanery-service/src/main/java/com/gmail/buer2012/deaneryservice/repository/DeaneryRepository.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../deanery-service/src/main/java/com/gmail/buer2012/deaneryservice/repository/DepartmentRepository.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../deanery-service/src/main/java/com/gmail/buer2012/deaneryservice/repository/GroupRepository.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../deanery-service/src/main/java/com/gmail/buer2012/deaneryservice/repository/LessonRepository.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../deanery-service/src/main/java/com/gmail/buer2012/deaneryservice/repository/StudentRepository.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../deanery-service/src/main/java/com/gmail/buer2012/deaneryservice/repository/TimeTableRepository.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../deanery-service/src/main/java/com/gmail/buer2012/deaneryservice/repository/TutorRepository.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../deanery-service/src/main/resources/application.properties">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/index.html">
           <value>
             <set />
@@ -78,7 +198,32 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/static/css/tableStyle.css">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/static/html/deanery.html">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/static/html/group.html">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/static/html/timeTable.html">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/static/html/timetable.html">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/static/html/tutors.html">
           <value>
             <set />
           </value>
@@ -93,12 +238,32 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/static/js/groupTable.js">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/static/js/service.js">
           <value>
             <set />
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/static/js/studentTable.js">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/static/js/studentsTable.js">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/static/js/timetable.js">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/static/js/tutorsTable.js">
           <value>
             <set />
           </value>

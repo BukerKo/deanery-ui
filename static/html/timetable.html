@@ -22,24 +22,29 @@
 
 <div class="main-container">
     <div class="form-container">
-        <h1>Student</h1>
+        <h1>Timetable entry</h1>
         <div class="form">
-            <input type="text" id="first_name" placeholder="First name" required/>
-            <input type="text" id="last_name" placeholder="Last name" required/>
-            <input type="text" id="birth_date" placeholder="Birth date" required/>
+            <select id="dayOfWeek" required>
+                <option>MONDAY</option>
+                <option>TUESDAY</option>
+                <option>WEDNESDAY</option>
+                <option>THURSDAY</option>
+                <option>FRIDAY</option>
+                <option>SATURDAY</option>
+            </select>
+            <select id="tutor" required ></select>
+            <input type="text" id="content" placeholder="Enter lesson data" required/>
             <input type="button" value="Save" id="btnSave"/>
             <input type="button" value="Refresh Form" id="btnRefresh"/>
         </div>
     </div>
     <div class="table-container">
-        <input type="button" value="Timetable" id="timeTable" />
-
         <table id="table1">
             <thead id="table-head">
             <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Birth Date</th>
+                <th>Day Of week</th>
+                <th>Lesson data</th>
+                <th>Tutor</th>
                 <th>Edit</th>
                 <th>Delete</th>
             </tr>
@@ -47,7 +52,7 @@
         </table>
     </div>
 </div>
-<script src="../js/groupTable.js" charset="utf-8"></script>
+<script src="../js/timetable.js" charset="utf-8"></script>
 
 </body>
 </html>

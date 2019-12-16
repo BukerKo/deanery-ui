@@ -1,16 +1,15 @@
 'use strict';
 
-let departmentData;
-let url_string =  window.location.href;
-let url = new URL(url_string);
-let id = url.searchParams.get("id");
-
-const groupsUrl = "http://localhost:8080/groups/" + id;
-const rootStudentsUrl = "http://localhost:8080/students";
-let studentsUrl;
-
 
 window.onload = async () => {
+    let url_string =  window.location.href;
+    let url = new URL(url_string);
+    let id = url.searchParams.get("groupId");
+
+    const groupsUrl = "http://localhost:8085/groups/" + id;
+    const rootStudentsUrl = "http://localhost:8085/students";
+    let studentsUrl;
+
     let response = await fetch(groupsUrl);
     let myJson = await response.json();
     studentsUrl = myJson['_links'].students.href;
@@ -22,7 +21,8 @@ window.onload = async () => {
     var updateTable = function () {
         var dataTable = document.getElementById('table1'),
             tableHead = document.getElementById('table-head'),
-            tbody = document.createElement('tbody');
+            tbody = document.createElement('tbody'),
+            timeTable = document.getElementById('timeTable');
 
         while (dataTable.firstChild) {
             dataTable.removeChild(dataTable.firstChild);
@@ -84,6 +84,11 @@ window.onload = async () => {
 
             tbody.appendChild(tr);
         }
+
+        timeTable.addEventListener('click', () => {
+            window.location.href = "/static/html/timetable.html?groupId=" + id;
+        });
+
         dataTable.appendChild(tbody);
     };
 

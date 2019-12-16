@@ -1,10 +1,10 @@
 'use strict';
 
-let studentsData;
-const tutorsUrl = "http://localhost:8080/students";
-
 window.onload = async () => {
-    const response = await fetch(tutorsUrl);
+    let studentsData;
+    const studentsUrl = "http://localhost:8085/students";
+
+    const response = await fetch(studentsUrl);
     const myJson = await response.json();
     studentsData = myJson["_embedded"].students;
 
@@ -104,7 +104,7 @@ window.onload = async () => {
                 birthDate: newBirthDate
             };
 
-        let result = await fetch(tutorsUrl, {
+        let result = await fetch(studentsUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

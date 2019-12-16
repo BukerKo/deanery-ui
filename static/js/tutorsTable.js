@@ -1,25 +1,12 @@
 'use strict';
 
-let departmentData;
-let url_string =  window.location.href;
-let url = new URL(url_string);
-let id = url.searchParams.get("id");
-console.log(id);
-
-
-const departmentsUrl = "http://localhost:8085/departments/" + id;
-const rootGroupsUrl = "http://localhost:8085/groups";
-let groupsUrl;
-
+const tutorsUrl = "http://localhost:8085/tutors";
 
 window.onload = async () => {
-    let response = await fetch(departmentsUrl);
-    let myJson = await response.json();
-    groupsUrl = myJson['_links'].classes.href;
-    response = await fetch(groupsUrl);
-    myJson = await response.json();
-    const departmentData = myJson['_embedded'].groups;
-    console.log(departmentData);
+    const response = await fetch(tutorsUrl);
+    const myJson = await response.json();
+    const tutorsData = myJson["_embedded"].tutors;
+
 
 // Update table according to data
     var updateTable = function () {
@@ -33,19 +20,21 @@ window.onload = async () => {
 
         dataTable.appendChild(tableHead);
 
-        for (var i = 0; i < departmentData.length; i++) {
-            const deanery = departmentData[i];
+        for (var i = 0; i < tutorsData.length; i++) {
+            const tutor = tutorsData[i];
             var tr = document.createElement('tr'),
                 td0 = document.createElement('td'),
                 td1 = document.createElement('td'),
                 td2 = document.createElement('td'),
+                td3 = document.createElement('td'),
+                td4 = document.createElement('td'),
                 btnDelete = document.createElement('input'),
                 btnEdit = document.createElement('input');
 
             btnDelete.setAttribute('type', 'button');
             btnDelete.setAttribute('value', 'Delete');
             btnDelete.setAttribute('class', 'btnDelete');
-            btnDelete.setAttribute('id', deanery['_links'].department.href);
+            btnDelete.setAttribute('id', tutor['_links'].self.href);
 
             btnEdit.setAttribute('type', 'button');
             btnEdit.setAttribute('value', 'Edit');
@@ -54,11 +43,14 @@ window.onload = async () => {
             tr.appendChild(td0);
             tr.appendChild(td1);
             tr.appendChild(td2);
+            tr.appendChild(td3);
+            tr.appendChild(td4);
 
-            let id = deanery['_links'].self.href.split("/").slice(-1)[0];
-            td0.innerHTML = '<a href="/static/html/group.html?groupId=' + id + '">'+deanery.name+'</a>';
-            td1.appendChild(btnEdit);
-            td2.appendChild(btnDelete);
+            td0.innerHTML = tutor.firstName;
+            td1.innerHTML = tutor.lastName;
+            td2.innerHTML = tutor.degree;
+            td3.appendChild(btnEdit);
+            td4.appendChild(btnDelete);
 
 
             btnDelete.onclick = (function () {
@@ -85,52 +77,56 @@ window.onload = async () => {
 
 // Set form for data edit
     var updateForm = function (id) {
-        var nameField = document.getElementById('group'),
+        var firstNameField = document.getElementById('first_name'),
+            lastNameField = document.getElementById('last_name'),
+            degreeField = document.getElementById('degree'),
             saveButton = document.getElementById('btnSave');
 
-        const deanery = departmentData[id];
-        nameField.value = deanery.name;
+        const tutor = tutorsData[id];
+        firstNameField.value = tutor.firstName;
+        lastNameField.value = tutor.lastName;
+        degreeField.value = tutor.degree;
         saveButton.value = 'Update';
-        saveButton.setAttribute('data-update', deanery['_links'].self.href);
+        saveButton.setAttribute('data-update', tutor['_links'].self.href);
     };
 
 // Save new data
     var saveData = async function () {
-        var newName = document.getElementById('group').value,
+        var newFirstName = document.getElementById('first_name').value,
+            newLastName = document.getElementById('last_name').value,
+            newDegree = document.getElementById('degree').value,
             datatoAdd = {
-                name: newName,
+                firstName: newFirstName,
+                lastName: newLastName,
+                degree: newDegree
             };
 
-        let result = await fetch(rootGroupsUrl, {
+        let result = await fetch(tutorsUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(datatoAdd)
         });
-        const json = await result.json();
-        const groupUrl = json['_links'].department.href;
-
-        result = await fetch(groupUrl, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'text/uri-list',
-            },
-            body: departmentsUrl
-        });
 
         document.location.reload(true);
     };
 
 // Update data
-    var updateData = async function (groupUrl) {
-        var upName = document.getElementById('group').value;
-        let result = await fetch(groupUrl, {
+    var updateData = async function (departmentUrl) {
+        var upFirstName = document.getElementById('first_name').value;
+        var upLastName = document.getElementById('last_name').value;
+        var upDegree = document.getElementById('degree').value;
+        let result = await fetch(departmentUrl, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({name : upName})
+            body: JSON.stringify({
+                firstName : upFirstName,
+                lastName: upLastName,
+                degree: upDegree
+            })
         });
         document.location.reload(true);
     };

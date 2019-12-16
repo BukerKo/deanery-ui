@@ -1,7 +1,7 @@
 'use strict';
 
 let groupsData;
-const groupsUrl = "http://localhost:8080/groups";
+const groupsUrl = "http://localhost:8085/groups";
 
 window.onload = async () => {
     const response = await fetch(groupsUrl);
@@ -44,7 +44,7 @@ window.onload = async () => {
             tr.appendChild(td2);
 
             let id = group['_links'].self.href.split("/").slice(-1)[0];
-            td0.innerHTML = '<a href="/static/html/group.html?id=' + id + '">'+group.name+'</a>';
+            td0.innerHTML = '<a href="/static/html/group.html?groupId=' + id + '">'+group.name+'</a>';
             td1.appendChild(btnEdit);
             td2.appendChild(btnDelete);
 
