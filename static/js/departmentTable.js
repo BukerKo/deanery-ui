@@ -3,7 +3,7 @@
 let departmentData;
 let url_string =  window.location.href;
 let url = new URL(url_string);
-let id = url.searchParams.get("id");
+let id = url.searchParams.get("groupId");
 console.log(id);
 
 
